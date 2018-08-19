@@ -1,0 +1,238 @@
+#### Questions
+
+1. In your own words, explain what clean code is and why it is important.
+
+A: Clean code is code follows several conventions. The first and possibly the easiest is the naming conventions for your variables should describe what the function or the data is doing or containing. This makes it easier for someone who did not write the code to follow it as well as easier for the creator to go back and remember what they were doing. Another convention is to keep functions small and modular so that bugs or errors can be more easily traced. Looking for ways to seperate methods allows for better readability as well as making it easier to track down bugs. In summary, clean code is important for other developers to be able to read, modify and add functionality to your existing code base.
+
+2. Read this article about Toyota and their use of bad code. Although you may not yet understand all of the topics discussed, think about another commonly used object that relies on computers and explain what would happen if the code was not created to an acceptable standard.
+
+A: The first thing that comes to mind, probably due to the fact that the article was about automotive software, is stoplights. Stoplights use coding to set their timing to change the lights in order to allow the most effective and safe flow of traffic. If they did not have fail-safe features and the coding was not created to an acceptable standards, it could have terrible safety consequences. Having a malfunction that turns one direction green too quickly after the other turns red could cause a collision. This is especially dangerous if a car is accelerating through the intersection to beat a red light. While lights that fail to blinking yellow and are less safe than a properly timed and functioning stop light, it is vastly better than having the timing allow simultaneous green lights or transitions to happen too quickly. 
+
+ 
+#### Code
+
+3. Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+
+A: The first thing that is apparent is that the variables are not descriptive. It is not apparent what this code is doing at first without reading the comments. I am also confused about why the x parameter is needed if all the function is doing is converting temperature between Celcius and Fahrenheit.
+```
+FUNCTION do(x, y)               // Creating a new function
+ IF y = "F" THEN               // Check if y is equal "F"
+ SET z to (x-32) * (5/9)       // Formula to convert degrees fahrenheit to celsius
+ PRINT z                       // Print result
+ ELSE IF y = "C" THEN          // If y not equal to "F", check if equal to "C"
+ SET z to x * 1.8000 + 32.00   // Formula to convert degrees celsius to fahrenheit
+ PRINT z                       // Print result
+ END IF
+END FUNCTION
+
+REFACTORED FUNCTION(temp)
+ IF temp = "fahrenheit" THEN
+ SET convertedTempToCelcius to (temp-32) * (5/9)
+ PRINT convertedTempToCelcius + "Celcius"
+ ELSE IF temp = "celcius" THEN
+ SET convertedTempToFahrenheit to temp * 1.8 + 32
+ PRINT convertedTempToFahrenheit + "Fahrenheit
+ END IF
+END FUNCTION
+```
+
+4. Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+
+A: This function is also unclear to understand since it is taken out of context. The questions that come to mind for me are what type of percentage is being calculated. If I knew that, I could possibly make the variables more descriptive, but it also might not be necessary in the total program or component. When I think of sum as a descriptive variable, I think of adding multiple things together which seems very similar to total. Sum could possibly be better named with a name such at subtotal if this is calculating a tax percentage but it is impossible to tell since the name of the function isn't descriptive. I would also move the error handling statement to the front. This would also allow you to remove the negative boolean test in the begining which makes things a little more clear. I am not really sure if that is appropriate convention, but to me it seems like eliminating invalid input should be step one.
+```
+FUNCTION calcPercent(sum, total)
+ IF NOT(total = 0) THEN
+     SET percentage to sum / total * 100
+ ELSE
+   PRINT "Sorry, cannot divide by 0"
+ END IF
+
+ PRINT percentage
+END FUNCTION
+
+//I would change the name of the funtion if I knew the context.
+REFACTORED FUNCTION calcPercent(sum, totalPossible)
+ IF (total = 0) THEN
+   PRINT "Sorry, cannot divide by 0"
+ ELSE
+   SET percentage to sum / totalPossible * 100
+   PRINT percentage
+ END IF
+END FUNCTION
+```
+
+5. Using pseudocode, refactor the code for the following examples using the principles you have learned in this checkpoint.
+
+a. The following function prints the subtotal of a customer's transaction and receives payment accordingly.
+
+```
+FUNCTION checkOutCustomer(subTotal, discountRate, paymentType)
+   PRINT "Your total due is: " + subTotal * discountRate + (subTotal * tax)
+
+   IF paymentType = 'CASH' THEN
+       CALL getPayment RETURNING amount
+       PRINT "Change due: " + amount - subTotal * discountRate + (subTotal * tax)
+   ELSE IF paymentType = 'CREDIT CARD' THEN
+       CALL getPayment RETURNING amount
+       PRINT "Your credit card has been charged: " + subTotal * discountRate + (subTotal * tax)
+   END IF
+END FUNCTION
+
+/*I created a variable called totalDue to remove the several uses of the equation. I also changed the else if statement to just an else. It could be an else if, if paying with a check was an option, but the original function did not include this as an option. Changing the else if to else allows you to remove checking another condition as well. */
+
+REFACTORED FUNCTION checkOutCustomer(subTotal, discountRate, paymentType)
+  totalDue = subTotal * discountRate + (subTotal * tax)
+  PRINT "Your total due is: totalDue
+
+  IF paymentType = 'CASH' THEN
+    CALL getPayment RETURNING amount
+    PRINT "Change due: amount - totalDue
+
+  ELSE 
+    CALL getPayment RETURNING amount
+    PRINT "Your credit card has been charged: totalDue
+  END IF
+END FUNCTION
+```
+
+b. The following function checks out a book if there are no issues with the guest's account.
+```
+FUNCTION checkoutBook(book, guest)
+ IF guest.accountActive THEN
+     IF NOT(guest.hasOverdueBooks) THEN
+         IF guest.outstandingFees = 0 THEN
+           APPEND book to guest.books
+           SET book.status to "Checked Out"
+           PRINT "Your books have been issued."
+         END IF
+     END IF
+ ELSE
+     PRINT "Unable to check out book."
+ END IF
+END FUNCTION
+
+REFACTORED FUNCTION checkoutBook(book, guest)
+  IF NOT(guest.accountActive) THEN
+    PRINT "You need to activate you account"
+  ELSE IF (guest.hasOverdueBooks) THEN
+    PRINT "You have overdue books that need to be returned"
+  ELSE IF (guest.outstandingFees != 0) THEN
+    PRINT "You need to pay your outstanding fees of: outstandingFees"
+  ELSE
+    APPEND book to guest.books
+    SET book.status to "Checked Out"
+    PRINT "Your books have been issued."
+  END IF
+END FUNCTION
+
+/*If we don't want to print all those messages I would just remove the nested if statements.*/
+
+OPTION 2 FUNCTION checkoutBook(book, guest)
+  IF guest.accountActive THEN
+    IF NOT (guest.hasOverdueBooks && guest.outstandingFees > 0) THEN
+      APPEND book to guest.books
+      SET book.status to "Checked Out"
+      PRINT "Your books have been issued."
+    END IF
+  ELSE
+    PRINT "Your account is not active"
+  END IF
+END FUNCTION
+  
+```
+
+c. The following class is a code snippet that should support the transactions a customer can perform at an ATM.
+```
+/*I do not see anything that I would really change with this example. The variables are descriptive, each function in broken up into the smallest possible block, only executing one action. The code seems to flow in the correct order. There are no nesting issues at all let alone having nesting being too deep. Either this is a test to see if I can see clean code, or I am missing something and really need some help and guidance. */
+
+CLASS BankAccount
+
+ FUNCTION displayBalance
+    PRINT balance
+ END FUNCTION
+
+ FUNCTION deposit(amount)
+    SET balance to balance + amount
+ END FUNCTION
+
+ FUNCTION withdraw(amount)
+     IF balance > amount THEN
+       SET balance to balance - amount
+     END
+ END FUNCTION
+
+ FUNCTION creditCardOffer
+     IF NOT(customer.hasCreditCard) THEN
+         CALL offerCreditCard
+     END
+ END FUNCTION
+
+ FUNCTION checkStatus
+     IF NOT(customer.hasCheckingAccount) THEN
+         CALL offerCheckingAccount
+     END
+ END FUNCTION
+
+ ....
+ ....
+ ....
+
+END
+```
+
+You may do the following problems in any language of your choice. Use the clean code principles taught in this section while writing the code.
+
+6. Square Given an array of integers, find out whether the sum of the integers is a perfect square. If it is a perfect square, return the square root, otherwise return the sum.
+
+Example:
+[10,1,4,6,1,1,2] returns 5 because the square root of 25 is 5.
+[1,1] returns 2 because 2 is not a perfect square.
+The square root of 2 is approximately 1.414213562373095.
+
+```
+const perfectSquare = (intArray) => {
+  
+  let sum = intArray.reduce((total, num) => total + num);
+  
+  let squareRoot = Math.sqrt(sum);
+  
+  return Number.isInteger(squareRoot) ? squareRoot : sum;
+
+}
+```
+
+7. Duplicate Given an array of integers, find out whether the array contains any duplicate elements. The function should return true if any value appears at least twice in the array, and false if every element is distinct.
+
+```
+const isDuplicate = array => {
+  
+  let num1;
+  
+  let num2;
+  
+  let result;
+  
+  let sortedArray = array.sort((a, b) => a - b);
+  
+  for (let i = 0; i < sortedArray.length-1; i++) {
+    
+    num1 = sortedArray[i];
+    
+    num2 = sortedArray[i+1];
+    
+      if (num1 === num2) {
+      
+        result = true;
+    
+      } else {
+      
+        result = false;
+    
+      }
+  
+   }
+  
+   return result;
+
+}
+```

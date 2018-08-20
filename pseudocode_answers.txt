@@ -1,0 +1,110 @@
+#### Questions
+
+1. Why do programmers use pseudocode?
+
+A: Pseudocode is used to organize an algorithm, program, or application into the proper steps so that the regular code can be written by simply translating the pseudocode into the proper syntax. It allows programmers to develop the algorithms for the code with total focus on the steps and the process.
+
+2. If you run pseudocode on your computer what would happen?
+
+A: It would not compile because it does not follow any language syntax.
+
+#### Programming Assignment
+
+Write the following algorithms in pseudocode:
+
+1. Create a function that takes two numbers and prints out the greater number.
+
+```
+FUNCTION compareNumbers
+  GET first number
+  GET second number
+  IF first number is bigger than second number
+    PRINT first number
+  ELSE
+    PRINT second number
+  END IF
+END FUNCTION
+```
+
+2. Create a function that prints out the numbers from 1 to 100.
+
+```
+FUNCTION printOneToOnehundred
+  INIT number to 1
+  WHILE number is less than or equal to 100
+    Increment number
+    PRINT number
+  END WHILE
+END FUNCTION
+```
+
+3. Create a function that searches for a specific entry in a phonebook.
+
+```
+FUNCTION phonebookSearch
+  GET name to search for
+  IF name is found
+    PRINT all of the information for the object
+  ELSE name is not found
+    PRINT "This name is not found. Please check the spelling and try again."
+  ENDIF
+END FUNCTION
+  
+```
+
+4. Using the pseudocode you wrote for the previous question, implement it in any computer language of your choice.
+
+```
+const phoneBook = [
+ 
+  {
+  lastName: "Kreuger", 
+  firstName: "Fred", 
+  phoneNumber: "555-555-5555" 
+  },
+  
+  {
+  lastName: "Meyers", 
+  firstName: "Mikey", 
+  phoneNumber: "666-666-6666"
+  },
+  
+  {
+  lastName: "Lundahl", 
+  firstName: "Derek", 
+  phoneNumber: "777-777-7777"
+  },
+
+];
+
+
+
+const phonebookSearch = (name) => {
+  
+  let text = "";
+  
+  let search = name.toLowerCase();
+  
+  for (let i = 0; i < phoneBook.length; i++) {
+    
+    if (search == phoneBook[i].lastName.toLowerCase()) {
+            
+      text += `Last Name: ${phoneBook[i].lastName} First Name: ${phoneBook[i].firstName} Phone: ${phoneBook[i].phoneNumber}`
+     } else {
+        
+        text = ""
+    
+    }
+
+  
+  }
+  return text === "" ? `Sorry. ${search} is not found. Check spelling and try again.` : text;
+
+}
+
+
+
+
+
+console.log(phonebookSearch('LUNDAHL'));
+```

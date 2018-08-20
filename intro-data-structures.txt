@@ -1,0 +1,159 @@
+1. A line of people at an amusement park ride.
+
+The line is composed of members, represented as strings.
+There is a front to the line, as well as a back.
+When someone enters the line, place them at the end.
+People may leave the line whenever they see fit, and those behind them take their place.
+Given the above real-world information, use an array data structure to code the following solution.
+
+a) Use an array input: ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+b) Insert a new person, "Mary" at the end of the line. In other words, you should insert Mary after Mike.
+c) Find a person in line named "Josh." This function should return the position of 2 in the array, (recall that arrays are 0-based).
+d) Find a person in line named "Emily." What should your function return if it does not find the item in the array?
+e) What if Ava wants to allow a friend, "Melissa", to cut in line in front of her? How would you code this so Melissa appears before Ava?
+f) If Patrick wants to leave the line, how would you delete him from the array?
+
+```
+//a) Use an array input: ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+
+let parkLine = ["Vivian", "Ava", "Josh", "Patrick", "Mike"];
+
+
+
+
+//b) Insert a new person, "Mary" at the end of the line. In other words,
+ 
+//you should insert Mary after Mike.
+
+
+const newInLine = newPerson =>  parkLine.push(newPerson);
+
+
+
+newInLine('Mary');
+
+
+
+
+// c) Find a person in line named "Josh." This function should return the
+ 
+//position of 2 in the array, (recall that arrays are 0-based).
+ 
+
+const linePosition = personName => parkLine.indexOf(personName);
+
+ 
+
+console.log(linePosition('Josh'));
+
+ 
+
+// d) Find a person in line named "Emily." What should your function
+  
+//return if it does not find the item in the array?
+  
+
+const findPersonByName = name => {
+    
+  let foundPerson = '';
+    
+  let placeInLine;
+    
+  for (let i = 0; i < parkLine.length; i++) {
+      
+    if (parkLine[i] === name) {
+        
+      foundPerson = parkLine[i];
+        
+      placeInLine = parkLine.indexOf(foundPerson);
+      
+    }
+      
+  }
+
+  if (foundPerson === '') {
+      
+    return `Sorry. ${name} is not in line`;
+    
+  } else {
+      
+      return `${foundPerson} is ${placeInLine +1 } in line`;
+    
+  }
+  
+}
+
+
+
+// console.log(findPersonByName('Vivian'));
+
+// console.log(findPersonByName('Zeek'));
+
+
+
+// e) What if Ava wants to allow a friend, "Melissa", to cut in line
+ 
+//in front of her? How would you code this so Melissa appears
+ 
+//before Ava?
+
+ 
+const cutInLine = (cutteeName, cutterName) => {
+   
+  parkLine.splice(linePosition(cutteeName), 0, cutterName);
+   
+  return parkLine;
+ 
+}
+
+
+
+cutInLine('Ava', 'Melissa');
+
+console.log(parkLine);
+
+ 
+
+// f) If Patrick wants to leave the line, how would you delete him
+ 
+// from the array?
+
+ 
+
+const leaveTheLine = name => {
+   
+  parkLine.splice(linePosition(name), 1);
+   
+  return parkLine;
+ 
+}
+
+
+
+console.log(leaveTheLine('Patrick'));
+```
+
+2. Provide another real-world example that you can model using a data structure.
+I will use an example of where I work now. In a big box hardware store there are thousands of items. Each item as a name, description, price and more information depending on how in depth we need to get. I would set up an array of objects with each object having key/value pairs to fully describe all of the properties of the object that are required.
+
+```
+var hardwareItems = [
+  {
+  name: "wrench",
+  vendor: "Craftsman",
+  price: 10.50,
+  isInStock: Yes,
+  numberOnHand: 7
+  },
+  {
+  name: "hammer",
+  vendor: "Craftsman",
+  price: 9.75,
+  isInStock: Yes,
+  numberOnHand: 4
+  },
+]
+
+3. How would your data structure allow developers to access and manipulate the data?
+
+You could use a loop or array methods to manipulate and view the information that you would like to see, display or use.

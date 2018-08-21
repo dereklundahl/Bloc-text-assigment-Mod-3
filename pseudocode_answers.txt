@@ -20,6 +20,8 @@ FUNCTION compareNumbers
   GET second number
   IF first number is bigger than second number
     PRINT first number
+  ELSE IF first number equals the second number
+    PRINT first number and "Numbers are equal."
   ELSE
     PRINT second number
   END IF
@@ -32,8 +34,8 @@ END FUNCTION
 FUNCTION printOneToOnehundred
   INIT number to 1
   WHILE number is less than or equal to 100
-    Increment number
     PRINT number
+    Increment number
   END WHILE
 END FUNCTION
 ```
@@ -41,6 +43,8 @@ END FUNCTION
 3. Create a function that searches for a specific entry in a phonebook.
 
 ```
+INIT phonebook array
+
 FUNCTION phonebookSearch
   GET name to search for
   IF name is found
@@ -90,7 +94,8 @@ const phonebookSearch = (name) => {
     if (search == phoneBook[i].lastName.toLowerCase()) {
             
       text += `Last Name: ${phoneBook[i].lastName} First Name: ${phoneBook[i].firstName} Phone: ${phoneBook[i].phoneNumber}`
-     } else {
+     
+    } else {
         
         text = ""
     

@@ -1,0 +1,332 @@
+#### Questions
+
+>What is a hash table?
+
+A:
+
+>What is hashing?
+
+A: Hashing is the process of using a function to assign a hash code to a data type. The hashing process is deterministic, meaning that no matter how many times a piece of data (usually a string) is run through the function, the hash code will always be the same. The hash code is then used to an index.
+
+>How does a hash table store data?
+
+A: In the last step of the hashing funtion the hash code is converted into an index based on the capacity of the the hash table. This makes the storing of data similar to an array due to the fact that each piece of data has an index however, the real power of the hash table is the speed in which you are able to look up, add and remove data from the had table buy running a key through the hashing function.
+
+>How are hash tables and objects different?
+
+A: Hash tables and objects are very similar, in fact they seem to be arrays of objects. The main difference is in adding, accessing and removing data. The hashing function sets a hash table apart from an object because you do not need to loop through each piece of data to find what you are looking for but instead use the hashing function. The way I think of hash tables and objects is that hash tables are obects, but not all objects are hash tables. What that means is that if an object does not use a hashing function to store, remove and look up data, then it is not a hash table.
+
+>Determine whether you would use a hash table or an object to store each of the following pieces of data:
+   -A list of pets and their unique names.
+      Object:
+   -The name, age, and the birthday of your best friend.
+      Object:
+   -The name and location of every company in a given city.
+      Hash Table
+   -All of the books checked out from a library by a particular       individual.
+      Hash table
+   -The primary and secondary phone numbers for a contact.
+      Hash Table
+#### Code
+
+>Build a system that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers. Store this information in a hash table.
+
+A: I am not sure if I am doing this correctly or if there is a much better way. I had to do some searching on the internet and used the hashing function from https://www.youtube.com/watch?v=F95z5Wxd9ks&t=470s.
+
+```
+
+var hash = function(string, max) {
+  
+  var arrayIndex = 0;
+  
+  for (let i = 0; i < string.length; i++) {
+    
+    arrayIndex += string.charCodeAt(i);
+  
+  }
+  
+  return arrayIndex % max;
+
+}
+
+ 
+
+let HashTable = function() {
+  
+  let customerData = [];
+  
+  const storageLimit = 15;
+
+  
+ 
+  this.addPerson = function(key, value) {
+     
+    var index = hash(key, storageLimit);
+     
+    if (customerData[index] === undefined) {
+       
+      customerData[index] = [[key, value]];
+     
+    } else {
+       
+        var inserted = false;
+       
+        for (var i = 0; i < customerData[index].length; i++) {
+                   if (customerData[index][i][0] === key) {
+                       customerData[index][i][1] = value;
+
+            inserted = true;
+         
+          }
+       
+        }
+       
+        if (inserted === false) {
+         
+          customerData[index].push([key, value]);
+       
+        }
+     
+    }
+   
+  };
+
+  
+
+  this.lookUpPerson = function(key) {
+    
+    var index = hash(key, storageLimit);
+    
+    if (customerData[index] === undefined) {
+      
+      return undefined;
+    
+    } else {
+      
+        for (let i = 0; i < customerData[index].length; i++) {
+                  if (customerData[index][i][0] === key) {
+          
+            return console.log(customerData[index][i][1]);
+        
+          }
+      
+        }
+    
+    }
+  
+  };
+
+
+}
+
+
+
+class Customer {
+  
+  constructor(name, address, phone) {
+    
+    this.name = name;
+    
+    this.address = address;
+    
+    this.phone = phone;
+  
+  }
+
+}
+
+
+
+var derek = new Customer("Derek Lundahl", "45 Cool St", "555-123-9087");
+
+var peter = new Customer("Peter Piper", "12 Pickled Pepper Rd", "123-456-7892")
+
+var lisa = new Customer("Lisa Simpson", "3456 Cartoon Ave", "999-999-9999");
+
+var joe = new Customer("Derek Lundahl", "45 Cool St", "888-888-8888");
+
+var shrek = new Customer("Derek Lundahl", "45 Cool St", "777-777-7777");
+
+
+
+
+
+let ht = new HashTable();
+
+
+ht.addPerson('555-123-9087', derek );
+
+ht.addPerson('123-456-7892', peter);
+
+ht.addPerson('999-999-9999', lisa);
+
+ht.addPerson('888-888-8888', joe);
+
+ht.addPerson('777-777-7777', shrek);
+
+ht.lookUpPerson('123-456-7892');
+
+ht.lookUpPerson('555-123-9087');
+```
+
+>Build a system that allows a store owner to track their store's inventory using a hash table for storage.
+
+```
+class Inventory {
+  constructor(item, quantity, price, ) {
+    
+  this.item = item;
+    
+  this.quantity = quantity;
+    
+  this.price = price;
+  
+  }
+
+}
+
+
+
+var adultSleepingBag = new Inventory("Adult Sleeping Bag", 5, "$125.00");
+
+var kidsSleepingBag = new Inventory("Kids Sleeping Bag", 3, "$75.00");
+
+var largeTent = new Inventory("8 Person Tent", 6, "$125.00");
+var smallTent = new Inventory("3 Person Tent", 10, "$60.00");
+
+var cookingSet = new Inventory("10 Piece Cooking Set", 5, "$50.00");
+
+
+
+var inventoryMap = new Map();
+
+
+
+const addInventory = (str, obj) => {
+    
+  inventoryMap.set(str, obj);
+    
+  console.log(`you just added ${obj.item} to your inventory`);
+
+}
+
+
+
+const findInventory = str => {
+  
+  let lookUp = inventoryMap.get(str);
+  
+  lookUp === undefined ? console.log(`You have no ${str}s in   inventory`) :
+  
+  console.log(
+    `There are ${lookUp.quantity} ${lookUp.item}s at a   price of ${lookUp.price}`
+);
+
+}
+
+
+
+const viewAllInventory = () => {
+  
+  let allInventory = inventoryMap.forEach(function(value, key) {
+        console.log(`${value.quantity} ${value.item}s ${value.price}`);
+    });
+}
+
+
+
+
+addInventory("Adult Sleeping Bag", adultSleepingBag);
+
+findInventory("Adult Sleeping Bag");
+
+findInventory("fork");
+
+addInventory("3 Person Tent", smallTent);
+
+viewAllInventory();
+```
+
+>Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
+
+```
+class NewsPaper {
+  
+  constructor(publisher, pubDate, content ) {
+    
+    this.publisher = publisher;
+    
+    this.pubDate = pubDate;
+    
+    this.content = content;
+  
+  }
+
+}
+
+
+
+var newYorkTimes = new NewsPaper('New York Times', '01/02/1976', 'This is newspaper content.');
+
+var washingtonPost = new NewsPaper('Washington Post', '02/03/2016', 'Content of a newspaper');
+
+var newYorkTimes2 = new NewsPaper('New York Times', '04/05/2010', 'Content diggity.');
+
+
+
+var newsPaperMap = new Map();
+
+
+
+
+var addNewsPaper = (publisher, newsPaperObj) => {
+    
+  newsPaperMap.set(publisher, newsPaperObj);
+    
+  console.log("You just added a new newspaper.")
+
+}
+
+
+
+var findNewsPaperByPublisher = publisher => {
+  
+  newsPaperMap.forEach(function(value, key) {
+    
+    if (value.publisher === publisher) {
+      
+      console.log(`${value.publisher} ${value.pubDate}         ${value.content}`);
+    
+    }
+  
+  });
+
+}
+
+
+
+var findNewsPaperByPubDate = date => {
+  
+  newsPaperMap.forEach(function(value, key) {
+    
+    if (value.pubDate === date) {
+      
+      console.log(`${value.publisher} ${value.pubDate}       ${value.content}`);
+    
+    }
+  
+  });
+
+}
+
+
+
+addNewsPaper('New York Times, 01/02/1976', newYorkTimes);
+
+addNewsPaper('Washington Post, 02/03/2016', washingtonPost);
+addNewsPaper('New York Times, 04/05/2010', newYorkTimes2);
+findNewsPaperByPublisher('New York Times');
+
+findNewsPaperByPubDate('02/03/2016');
+
+```	

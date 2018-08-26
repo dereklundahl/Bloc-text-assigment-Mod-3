@@ -1,0 +1,86 @@
+1. Using proper pseudo-code, describe the following primitive algorithms:
+
+Making coffee;
+
+FUNCTION Making coffee
+  IF coffee pot is dirty
+    CALL washing dishes function function
+  ELSE
+    SET ammount of water to number of cups to make
+    WHILE water in coffee pot is less than ammount of water
+      Fill coffee pot with water
+    END WHILE
+    Pour water from coffee pot into coffee maker
+    Put coffee pot into the coffee maker
+    Put coffee filter into coffee maker
+    SET coffee ground scoops to number of cups to make
+    WHILE ammount of coffee ground scoops is less or equal to grounds in filter
+      Scoop grounds into the coffee maker filter
+    END WHILE
+    Turn on coffee maker
+  END IF
+END FUNCTION
+
+
+Washing dishes;
+
+FUNCTION Washing dishes
+  Put stopper in the sink
+  Fill sink with water.
+  Add 1 squeeze of soap to the water.
+  WHILE dirty dishes are greater than 0
+    Place dirty dish in water
+    Scrub dirty dish with sponge
+    Check if dish is still dirty
+    WHILE dish is still dirty
+      Scrub areas on dish that are still dirty
+      Check if dish is still dirty
+    END WHILE
+    Turn on water
+    Rinse dish
+    Place dish in the drying rack.
+  END WHILE
+END FUNCTION
+      
+
+A choice of your own.
+Mowing the lawn
+
+FUNCTION Mowing the lawn
+  Open gas cap
+  Check if gas tank is full.
+  WHILE gas tank is not full
+    Pour gas into the tank
+  END WHILE
+  Prime engine by pressing primer 3 times
+  Hold safety bar down
+  WHILE engine is not running continuously
+    Pull the cord to start the engine
+  END WHILE
+  Start at one side of the lawn and push running mower across grass in a strait line
+  WHILE all grass cut is not true
+   Once at other end of the lawn, turn mower 180 degrees towards uncut grass
+   Align mower so it slightly overlaps cut grass and is over uncut grass
+   Push lawn mower in a strait line across the grass.
+  END WHILE
+  Release the safety bar to turn off the lawn mower
+  IF lawn mower has a bag
+    Remove the bag
+    Empty the bag into a trash bag
+    Re-attach bag to lawn mower.
+  END IF
+  Push mower back into the garage.
+END FUNCTION
+    
+
+2. As with the knot algorithm, there may be more than one way to solve the problem. It is essential to try to pick the best algorithm for a situation. Name three companies who created an algorithm that made them successful, e.g., Google's search algorithm. It doesn't need to be a tech example (such as a recipe or manufacturing a product). Google's algorithm produces more relevant results than other search engines; what about each of your cases make them stand out?
+
+A: The first company that comes to mind is Starbucks. If you walk into a Starbucks anywhere in the world, you know that you are going to get a good cup of coffee. They perfected the algorithm for making a consistantly good cup of coffee and that is a large reason why they are succesfull.
+
+The other thing that I think of with algorithms is following precise steps to tackle a large problem. Ford became famous with their ability to mass produce automobiles by using an assembly line. Each step of the assembly line has a very specific and limited roll and a complex vehicle is assembled very quickly. The success of Ford's assembly line was used in many other applications.
+
+The last one that comes to mind is NetFlix's "You may enjoy" algorithm which suggests other shows or movies to watch. If you like this movie, you also may enjoy these 10. It is one of the reasons why NetFlix is so addictive as well as being successful. 
+
+3. Hypothesize about what constitutes an efficient algorithm versus an inefficient algorithm.
+
+A: Two things that make up the efficiency of an algorithm are speed and storage. Speed would be how quickly or efficiently the algorithm runs to solve the problem. Ideally the faster the algorithm solved the problem, the more efficient it is however, if an algorithm is fast but also consumes a large amount of computer memory, it can be inefficienct for space concerns. An efficient algorithm would address both concerns by being both space (memory) and time efficient. Since that is the case, the type of problem being solved is important to determine which efficiency is the most important or more important.

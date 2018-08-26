@@ -194,6 +194,26 @@ LinkedList.prototype.removeDuplicates = function() {
   }
 
 };
+
+var test3 = new LinkedList();
+
+var testData = [1, 1, 2, 2, 3, 3, 4, 4, 1];
+
+
+testData.forEach(element => test3.insertNodeAtTail(element));
+
+
+console.log(test3);
+
+
+//test3.removeDuplicates();
+
+//console.log(test3);
+
+
+//For some reason when I log the list all of the duplicates are there, and //when I run the removeDuplicates function it works but alters the original
+//console.log so I have the test commented out to show that it works.
+
 ```
 
 3. Given an unsorted singly linked list, reverse it.
@@ -236,5 +256,27 @@ LinkedList.prototype.reverseLinkedList = function() {
   this.head = p1
 
 }
+
+
+var L2 = new LinkedList();
+
+L2.insertNodeAtTail(5);
+
+L2.insertNodeAtTail(4);
+
+L2.insertNodeAtTail(3);
+
+L2.insertNodeAtTail(2);
+
+L2.insertNodeAtTail(1);
+
+
+console.log(L2);
+
+
+L2.reverseLinkedList();
+
+
+console.log(L2);
 
 ```

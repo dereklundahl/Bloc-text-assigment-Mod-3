@@ -8,7 +8,7 @@ A: Runtime is the amount of time an algorithm takes to run although sometimes it
 
 3. How is the runtime of an algorithm calculated?
 
-A: If by runtime, time complexity is what is being refered to, it is calculated as a function of n, where n is the input size and f(n) is the rate that the runtime grows with the growth of the input size. 
+A: If by runtime, time complexity is what is being refered to, it is calculated as a function of n, where n is the input size. To calculate the complexity you have to add up how many instructions the algorithm needs to execute as a function of the size of its inputs. You then simplify it to the largest term and drop any constants. 
 
 4. Name the six types of algorithm growth rates we saw in this checkpoint and list them in order of most efficient to least efficient. Now Google another algorithmic growth rate not covered and place it in the correct spot in your list.
 
@@ -58,7 +58,7 @@ FUNCTION foo(array)
  END FOR
 END FUNCTION
 
-A: This is also O(n) because it is a single loop going through every element in an array.
+A: I missed the fact that this is a nested for loop at first look. Because for every number in the array you will run another loop to print "hello", this is O(n^2).
 
 8. Determine the time complexity of the following snippet of code. It is commonly known as the Fibonacci sequence.
 
@@ -78,4 +78,4 @@ A: This is O(2^n) because it is a recursive function, calling itself until the a
 
 9. Out of the code snippets you just saw, which is the most time efficient?
 
-A: The most time efficient is the first one. Even though both the first and second are single loops with O(n) time complexity, the first one doesn't need to go through the entire loop to find the target in most cases.
+A: I am revising this answer as well since I missed the nested for loop. The first snippet is the most efficient at O(n). The second is the next most efficient at O(n^2) and the last is the least efficient at O(2^n).

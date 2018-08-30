@@ -1,0 +1,109 @@
+1. What is a real-life scenario that uses linear search?
+
+A: A real life example of a linear search could be any number of things. For some reason, eating jelly beans comes to mind. You reach into a bag and pull out the first one, if it isn't the color that you wanted to eat, you reach back in and check the next one.
+
+2. What is a real-life scenario that uses binary search?
+
+A: I think of finding a page number in a book. You flip to the middle and if the page that you are looking for is lower than what you turned to, you go backwards. If the page you need is higher, you flip further into the book.
+
+3. Given the alphabetically sorted collection in this checkpoint, how many iterations would it take to find the value G using linear search?
+
+A: For a linear search, each element is checked against the target. For this reason it would take 7 iterations to find G using a linear search.
+
+4. Given the alphabetically sorted collection in this checkpoint, how many iterations would it take to find the value G using binary search?
+
+A: Using a binary search it would really only take 2 iterations. On the first iteration, A through D are eliminated. The second iteration eliminates E and F leaving you with your target of G.
+
+5. Given an unsorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
+
+A: The fact that the collection is unsorted would make you think that a linear search would be best. With that many items however, a linear search could take quite a while, so I would sort the collection first and then use a binary search.
+
+My amended answer is a linear search because of the next question. My guess is that for this collection the data cannot be sorted. If the collection cannot be sorted, you would have to use a linear search.
+
+6. Given a sorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
+
+A: The answer is obviously a binary search. After 1 iteration, you only need to search half a million to find the target by eliminating half of the collection. The number of items you are searching through gets cut in half again at the next iteration. Since I answered this question as I did, my assumption is that I should change my answer for the previous question.
+
+Programming Assignment:
+
+1. You and a friend have set a wager to see who can find the word "Albatross" in the dictionary the fastest. Write a program to allow you to win the bet.
+
+```
+var testWord = "albatross";
+
+var testDictionary = [ 'accountant', 'accurate', 'alarm', 'albatross', 'aligator', 'alimony'];
+
+
+
+const findWord = function(word, array) {
+  
+  let low = 0;
+  
+  let high = array.length - 1;
+  
+
+
+
+  while(low <= high) {
+    
+    let mid = Math.floor((low + high) / 2);
+    
+    if (array[mid] > word) {
+      
+      high = mid -1;
+    
+    } else if (array[mid] < word) {
+      
+        low = mid + 1;
+    
+    } else {
+      
+        return testDictionary[mid];
+    
+    }
+    
+   return console.log('Not found');
+  
+   }
+
+}
+
+
+console.log(findWord(testWord, testDictionary));
+
+```
+
+2. You work at a pet store, and a child has asked you to net the only white-spotted goldfish from the fish tank. Write a program that will help you net the right fish.
+
+```
+var fishTank = ["brown-speckled", "green", "yellow", "white-spotted"]
+
+
+
+const findFish = function(collection, target) {
+  
+  var result = null, value;
+  
+  for(let i = 0; i < collection.length; i++) {
+    
+    value = collection[i];
+    
+    if(value === target) {
+      
+      result = i;
+      
+      break;
+    
+    }
+  
+  }
+  
+  return console.log(`Your fish is at index ${result}`);
+
+}
+
+
+
+findFish(fishTank, 'white-spotted');
+
+```

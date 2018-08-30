@@ -1,23 +1,137 @@
 1.Define and compare recursion and iteration.
 
-A:
+A: Recursion is when a function calls itself repeatedly until it arrives at a solution. You use a base case to stop the recursion and preventing an infinite loop. Iteration is just a loop that either continues while a condition is true or false. Recursion tends to run slower, but many times the same function can be written with simpler logic and less code using recursion.
 
 2. Name five algorithms that are commonly implemented by recursion.
 
-A:
+A: The most common algorithms that are implemented by recursion are Factorial of a number, Greatest common divisor, Fibonacci numbers, a binary search, a linked list print, and reversing a string.
 
 3. When should you use recursion, and when should you avoid recursion? Give examples for each.
 
-A:
+A: As a general rule of thumb, recursion should be avoided when possible, especially with large data sets because of time complexity issues (O(2^n)). If a function can be written iteravely without too much complexity, it is usually the better option. When large data sets are not expected, the use of recursion is perfectly fine. It can be used to find nodes in a binary search tree effectively as long is the tree is not too large. Recursion can also be used for several other functions, it is just important to consider the use, and more specifically the size of the data.
 
 4. Compare the recursive and iterative solutions to the three algorithms from the checkpoint (factorial, maximum, and fibonacci). What is similar, and what is different?
 
-A:
+A: Factorial - This problem seems to be just as easy to use an iterative solution as a recursive one. The only difference is that you use the argument to set the loop and multiply out each number. You need to use an extra variable like var sum to contain the numbers as you are looping through, so you can write the recursive solution in 1 or 2 less lines of code.
+
+Maximum - Finding the maximum in a set of values (an array) can be done with recursion as demonstrated in the lesson however, it can also be done through iteration with less variables and less lines of code making it not only more efficient with regards to time complexity, but also faster and easier to write the code with iteration.
+
+Fibonacci - The iterative solution is a lot more code however it is a bit easier to conceptualize what is going on. The recursive method is only a few lines of code, making it much easier to type.\
+
+In sumarry, I would personally most likely use recursion for the finonacci code, while I would use iteration for the factorial and maximum problems.
+
 
 5. Given a multi-dimensional collection (such as an array) where the number of dimensions is unknown, write a recursive algorithm to count the number of items in the entire collection.
 
+```
+var testArray = [
+  
+  [1, 2],
+  
+  [3, 4,],
+  
+  [5, 6, 7, 8]
+
+];
+
+
+
+function countElements(arr) {
+  
+  let flatArr = [];
+
+  
+  
+  function flatten(arr) {
+    
+    for(let i = 0; i < arr.length; i++) {
+      
+      let element = arr[i];
+      
+      if(Array.isArray(element)) {
+        
+        flatten(element);
+      
+      } else {
+        
+          flatArr.push(element);
+      
+      }
+    
+    }
+  
+   }
+  
+  flatten(arr);
+  
+  return flatArr.length;
+
+}
+
+
+
+console.log(countElements(testArray));
+
+```
+
 6. A palindrome is a word or phrase whose spelling is the same either direction (e.g., racecar). Write a recursive algorithm to determine if a given word or phrase is a palindrome.
+
+```
+
+var firstChar = function(str) {
+    
+  return str.slice(0, 1);
+
+}
+
+
+
+
+var lastChar = function(str) {
+    
+  return str.slice(-1);
+
+}
+
+
+
+
+var middleChars = function(str) {
+    
+  return str.slice(1, -1);
+
+}
+
+
+
+var isPalindrome = function(str) {
+    
+  if(str.length <= 1) {
+        
+    return true;
+    
+  }
+    
+  
+  if (firstCharacter(str) !== lastCharacter(str)) {
+        
+    return false;
+    
+  }
+    
+  
+  return isPalindrome(middleCharacters(str));
+
+}
+
+console.log(isPalindrome("a"));
+console.log(isPalindrome("dog");
+console.log(isPalindrome("rotor"));
+
+
+
+```
 
 7. Google Easter Egg: Google the term "recursion". Google will prompt you with "Did you mean: recursion". Explain why this behavior exhibits properties of recursion.
 
-A:
+A: The people at Google definately seem to be a bunch with a sense of humor. When I think of recursion. I think of an echo. It is the same sound, only a little smaller and more faint for each echo. So this bit of humor seems to be Google making a bit of a joke about a recursive function calling itself.

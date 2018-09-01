@@ -1,14 +1,26 @@
 1. What is a binary tree and what makes it unique to other trees?
 
+A: A binary tree's nodes may point to a left child and a right child. They are different that other trees because at most, each node may have two childeren.
+
 2. What is a heuristic?
+
+A: Assumtions or guesses for an algorithm in order to solve a complex problem faster by sacrificing accuracy.
 
 3. What is another problem besides the shortest-path problem that requires the use of heuristics?
 
+A: Rule of thumb could be a form of heuristics. Without knowing all of the variables to a problem, it takes into account historical situations that may have been similar and applies a decission to the problem. This could be inaccurate because just about every problem cna be different, but it can also cause success in most cases.
+
 4. What is the difference between a depth-first search and a breadth-first search?
+
+A: A depth first search searches from the root and travels down the a single branch to try to find a match. A breadth first search searches each row from top to bottom and left to right. Once a row has been searched, it will start at the left most node in the next row and continue searching.
 
 5. Explain in your own words what an undirected, a-cyclic, unweighted graph is.
 
+A: To break each piece down, the first term is undirected, which means there is not a single direction of flow, much like a two way street. A-cyclic means that there is not a loop involved. It is not cyclical. Unweighted means that there is no weight given to each path to determine the next node to travel too. One node is the same as another.
+
 6. What kind of graph is a binary search tree?
+
+A: A binary search tree is an undirected, a-cyclic graph. I am not completely sure, ubt I believe that it is weighted because as you are searching, you are deciding left of right depending on what you are looking for.
 
 Programming Questions
 
@@ -19,6 +31,63 @@ Binary Search Tree Image
 1. Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
 
 Example: The value 10 exists in the tree. The value 23 does not exist in the tree.
+
+```
+BinarySearchTree.prototype.contains = function (value) {
+
+  
+  const search = function(currentNode) {
+
+    
+    if (currentNode === undefined) {
+       
+      currentNode = this.root;
+    }
+    
+      // console.log(currentNode.data);
+    
+      // console.log(value);
+    
+      // console.log(currentNode.left.data);
+
+
+    
+ 
+    if (currentNode.data === value) {
+      
+      return true;
+    
+    } else if (value < currentNode.data && currentNode.left !== null) {
+      
+        // console.log("first else firing");
+      
+        return search(currentNode.left);
+    
+    } else if (value > currentNode.data && currentNode.right !== null) {
+      
+        return search(currentNode.right)
+      
+        // console.log("second else firing");
+    
+    } else {
+      
+       // console.log("fell through and returning false");
+      
+       return false;
+    
+    }
+  
+  }
+
+  
+  return search(this.root);
+
+}
+
+
+console.log(BST.contains(2));
+
+```
 
 2. Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
 

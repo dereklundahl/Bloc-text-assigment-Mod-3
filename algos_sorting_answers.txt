@@ -1,7 +1,51 @@
 1. Write pseudocode for bubble sort.
 
+A: 
+FUNCTION bubbleSort(collection)
+  WHILE swapped is true
+    SET swapped to false
+    FOR i = FIRST INDEX to LAST INDEX -1 of the collection
+      IF collection[i] > collection[i + 1] THEN
+        SET value of collection[i] to VAR tmp so value is preserved
+        SET value of collection[i + 1] to collection[i] changing the value to the lower value
+        SET value of temp to collection[i + 1] changing the value to the higher value.
+        SET swapped to true allowing while loop to continue.
+      END IF
+    END FOR
+  END WHILE when swapped is FALSE
+  RETURN collection
+END FUNCTION
+      
+
 2. Write pseudocode for quicksort.
+
+A: 
+FUNCTION quickSort(collection)
+  SET pivotPoint to LAST INDEX
+  SET i to FIRST INDEX
+  WHILE i is less than pivotPoint INDEX
+    IF collection[i] > pivotPoint
+      SET collection[i] to tmp
+      DECREMENT all INDEXES including pivotPoint
+      SET pivotPoint + 1 to tmp
+      IF i < pivotPoint
+        INCREMENT i
+      END IF
+    END IF
+  END WHILE
+  WHILE base case
+    SET left to elements < pivotPoint
+      quickSort left
+    SET right to elements > pivotPoint
+      quickSort right
+   END WHILE
+    RETURN CONCAT left and right
+END FUNCTION
 
 3. We talked about time complexity in a previous checkpoint, and how to get an idea of the efficiency of an algorithm. After looking at the pseudocode for the above sorting methods, identify why merge sort and quick sort are much more efficient than the others. Walking through each algorithm with a few sample collections may help.
 
+A:
+
 4. All of the sorts addressed in this checkpoint are known as comparison sorts. Research bucket sort and explain how it works. What is the ideal input for bucket sort?
+
+A: Bucket sorts divides the collection in to several buckets. You use a divider based on the max values, min values and number of buckets to assign a a bucket to place each number in. Then the numbers in each bucket are sorted. Once all of the buckets have been sorted, they are placed back into the array and are sorted. In order to use a bucket sort, you have to know the index of the collection. Bucket sort is best used when memory usage is not an issue and/or when elements are expected to be fairly evenly distributed.

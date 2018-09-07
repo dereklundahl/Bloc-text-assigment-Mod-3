@@ -1,0 +1,166 @@
+#### Questions
+
+>How do you find related data held in two separate data tables?
+
+A: To find related data held on two seperate tables, you look for a common column header or key, that you can use to link the data as related. 
+
+>Explain, in your own words, the difference between an INNER JOIN, LEFT OUTER JOIN, and RIGHT OUTER JOIN. Give a real-world example for each.
+
+A: INNER JOIN returns only elements of the tables that are contained in both tables. If the tables are joined on a key but that key is not populated for each item of the table, you will only get the results for where the keys match. For example in a retail store you might have a table that includes the peak times that customers shop in 15 minute increments. You have another table that holds all of your employees that shows their work availablity (the hours that they can work). If you join the two tables on time to find out if you have enough people to cover your busiest times during the day, it would return only the employees that work during those times, and only return the times that you have employee coverage. This may not be what you want to see, so you might need to use a LEFT or RIGHT OUTER JOIN.
+
+A LEFT OUTER JOIN will return the data where the tables overlap, followed by the rest of the information on the left table that does not have data on the right. With the previous example, this table will return the peak times with the associates to cover and the other peak times that do not have associates available. This could be more useful to determine if you need to hire some people with availability to cover those peak times. 
+
+A RIGHT OUTER JOIN does just the opposite of the left. It returns the data that overlaps as well as the remaining data for the right table. Using the same example, it will show the associates that have availablity to cover the peak times and other employees who do not work during any peak times. It might be time to discuss availability with the employees that aren't working during the times you need them to.
+
+>Define primary key and foreign key. Give a real-world example for each.
+
+A: A primary key is a column of discreate data for a table. By discreate I mean that each key for each row is different. In a retail store you could have a table with employee data and each employee has an associate ID. A foreign key is a column of data in a table that is not necessarily a discreate identifier for that table, but it does have corresponding data that can be joined with another tables primary key. An example could be a table that includes sales information for the store by employee ID. One employee may have several sales, so their ID shows up multiple times for multiple transactions on the table. That foreign key can be joined with the employee table to find the names of the employees that are doing well in sales for the day.
+
+>Define aliasing.
+
+A: Aliasing is using the first letter of the table name to shorten the syntax for the SQL command. Instead of typing out the full table name of employees, you could type e.
+
+>Change this query so that you are using aliasing:
+
+SELECT professor.name, compensation.salary,
+compensation.vacation_days FROM professor JOIN
+compensation ON professor.id =
+compensation.professor_id;
+
+A: SELECT p.name, c.salary, c.vacation_days
+   FROM professor AS p
+   JOIN compensation AS c
+   ON p.id = c.professor_id;
+
+>Why would you use a NATURAL JOIN? Give a real-world example.
+
+A: NATURAL join joins the columns that match on both tables with out specifying them. It could be used when you do not know what the keys might be. In a retail store we have different departments and each department has different categories of products. You might have a table with the stores inventory, but you would like to see what the inventory is in each department. A Natural join could use the department id for the inventory and the store to return the results you are trying to find.
+
+Using this Employee schema and data, write queries to find the following information:
+
+>List all employees and all shifts.
+
+A: SELECT employees.name, shifts.start_time, shifts.end_time
+FROM employees
+RIGHT OUTER JOIN shifts
+ON employees.id = shifts.id;
+
+Using this Adoption schema and data, please write queries to retrieve the following information and include the results:
+
+>Create a list of all volunteers. If the volunteer is fostering a dog, include each dog as well.
+
+A: 
+SELECT volunteers.first_name, volunteers.last_name, dog_adoptions.dog_id, dogs.name
+FROM volunteers
+LEFT OUTER JOIN dog_adoptions 
+ON volunteers.id = dog_adoptions.adopter_id
+LEFT OUTER JOIN dogs
+ON dog_adoptions.dog_id = dogs.id;
+
+first_name	last_name	dog_id	name
+Remus	           Lupin	10007	Rosco
+Rubeus	           Hagrid	null	null
+Marjorie	   Dursley	null	null
+Sirius	           Black	null	null
+Albus	          Dumbledore	null	null
+
+
+>The cat's name, adopter's name, and adopted date for each cat adopted within the past month to be displayed as part of the "Happy Tail" social media promotion which posts recent successful adoptions.
+
+A:
+SELECT cats.name, cat_adoptions.date, adopters.first_name, adopters.last_name, cat_adoptions.adopter_id
+FROM cats
+JOIN cat_adoptions
+ON cats.id = cat_adoptions.cat_id
+JOIN adopters
+ON cat_adoptions.adopter_id = adopters.id
+WHERE cat_adoptions.date > CURRENT_DATE - INTERVAL '31 DAYS';
+
+name	  date	                  first_name	last_name	adopter_id
+Mushi	2018-08-18T00:00:00.000Z  Arabella	Figg	         2
+Victoire2018-08-23T00:00:00.000Z  Argus	        Filch	         3
+
+>Create a list of adopters who have not yet chosen a dog to adopt.
+
+A:
+SELECT adopters.first_name, adopters.last_name, dog_adoptions.dog_id
+FROM adopters
+LEFT JOIN dog_adoptions
+ON adopters.id = dog_adoptions.adopter_id
+WHERE dog_adoptions.dog_id IS NULL;
+
+first_name	last_name	dog_id
+Arabella	Figg	       null
+Hermione	Granger        null
+
+>Lists of all cats and all dogs who have not been adopted.
+
+A:
+SELECT dogs.name, cats.name
+FROM dogs
+FULL OUTER JOIN cats
+ON dogs.id = cats.id
+LEFT JOIN dog_adoptions
+ON dogs.id = dog_adoptions.dog_id
+LEFT JOIN cat_adoptions
+ON cats.id = cat_adoptions.cat_id
+WHERE cat_adoptions.adopter_id IS NULL AND dog_adoptions.adopter_id IS NULL;
+
+name	        name
+Marmaduke	null
+Marley	        null
+Lassie	        null
+Boujee	        null
+Munchkin	null
+null	        Seashell
+null	        Nala
+
+>The name of the person who adopted Rosco.
+
+A:
+SELECT adopters.first_name, adopters.last_name, dogs.name
+FROM adopters
+JOIN dog_adoptions
+ON adopters.id = dog_adoptions.adopter_id
+JOIN dogs
+ON dog_adoptions.dog_id = dogs.id;
+
+first_name	last_name	name
+Argus	           Filch	Rosco
+
+Using this Library schema and data, write queries applying the following scenarios and include the results:
+
+>To determine if the library should buy more copies of a given book, please provide the names and position, in order, of all of the patrons with a hold (request for a book with all copies checked out) on "Advanced Potion-Making".
+
+A: 
+SELECT books.title, holds.rank, patrons.name, transactions.checked_in_date
+FROM holds
+JOIN books
+ON holds.isbn = books.isbn
+JOIN patrons
+ON holds.patron_id = patrons.id
+JOIN transactions
+ON holds.isbn = transactions.isbn
+WHERE transactions.checked_in_date IS NULL AND books.title = 'Advanced Potion-Making'
+ORDER BY rank;
+
+title	               rank	name	  checked_in_date
+Advanced Potion-Making	1	Terry Boot	null
+Advanced Potion-Making	2	Cedric Diggory	null
+
+>List all of the library patrons. If they have one or more books checked out, list the books with the patrons.
+
+A:
+SELECT *
+FROM transactions
+JOIN books
+ON (books.isbn = transactions.isbn AND transactions.checked_out_date IS NOT NULL AND transactions.checked_in_date IS NULL)
+RIGHT JOIN patrons 
+ON (patrons.id = transactions.patron_id AND transactions.checked_in_date IS NULL);
+
+id	patron_id	isbn	   checked_out_date	checked_in_date	isbn	   title	                           author	   id	 name
+null	null	        null	   null	                null	        null	   null	                                   null	           1	 Hermione Granger
+5	2	        9136884926 2018-09-04	        null	        9136884926 Advanced Potion-Making                  Libatius Borage 2	 Terry Boot
+null	null	        null	   null	                null	        null	   null	                                   null	           3	 Padma Patil
+null	null	        null	   null	                null	        null	   null	                                   null	           4	 Cho Chang
+7	5	        3458400871 2018-09-06	        null	        3458400871 Fantastic Beasts and Where to Find Them Newt Scamander  5	 Cedric Diggory

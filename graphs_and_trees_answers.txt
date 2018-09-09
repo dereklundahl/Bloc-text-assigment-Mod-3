@@ -33,6 +33,87 @@ Binary Search Tree Image
 Example: The value 10 exists in the tree. The value 23 does not exist in the tree.
 
 ```
+class BinarySearchTree {
+  
+  constructor() {
+    
+    this.root = null;
+  
+  }
+
+  
+
+  insertNode(val) {
+    
+    var node = {
+      
+      data: val,
+      
+      left: null,
+      
+      right: null
+    
+  };
+    
+  
+    var currentNode;
+
+    
+
+    if(!this.root) {
+      
+      this.root = node;
+    
+    } else {
+      
+      currentNode = this.root;
+      
+      while(currentNode) {
+        
+        if (val < currentNode.data) {
+          
+          if (!currentNode.left) {
+            
+            currentNode.left = node;
+            
+            break;
+          
+          } else {
+            
+            currentNode = currentNode.left;
+          
+          }
+        
+       } else if (val > currentNode.data) {
+          
+         if(!currentNode.right) {
+            
+           currentNode.right = node;
+            
+           break;
+          
+       } else {
+            
+         currentNode = currentNode.right;
+          
+       }
+        
+     } else {
+          
+       console.log('Ingnoring value. BST only has unique values');
+                 break;
+        
+     }
+      
+    }
+    
+   }
+  
+  }
+
+}
+
+
 BinarySearchTree.prototype.contains = function (value) {
 
   

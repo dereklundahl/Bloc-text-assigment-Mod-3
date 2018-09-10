@@ -175,6 +175,52 @@ console.log(BST.contains(2));
 Example: The distance between the nodes 4 and 10 is 4. The distance between the nodes 8 and 10 is 1. The distance between the nodes 1 and 14 is 4.
 
 ```
+BinarySearchTree.prototype.LCA = function (value1, value2) {
+  
+  let lowestCommonAncestor;
+
+  
+  const ancestor = function(currentNode) {
+
+    
+    if (currentNode === undefined) {
+       
+      currentNode = this.root;
+    
+    }
+
+    
+
+    while (lowestCommonAncestor === undefined) {
+      
+      if (value1 === currentNode.data || value2 === currentNode.data) {
+              lowestCommonAncestor = currentNode;
+      
+      } else if (value1 > currentNode.data && value2 < currentNode.data) {
+           lowestCommonAncestor = currentNode;
+      
+      } else if (value1 < currentNode.data && value2 > currentNode.data) {
+           lowestCommonAncestor = currentNode;
+      
+      } else if (value1 < currentNode.data && value2 < currentNode.data) {
+             return ancestor(currentNode.left);
+      
+      } else if (value1 > currentNode.data && value2 > currentNode.data) {
+            return ancestor(currentNode.right);
+      
+      }
+  return lowestCommonAncestor;
+    
+    }
+
+  
+  }
+  
+  return ancestor(this.root);
+
+}
+
+
 BinarySearchTree.prototype.distance = function (value1, value2) {
 
     currentNode = this.LCA(value1, value2);

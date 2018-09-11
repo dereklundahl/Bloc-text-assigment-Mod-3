@@ -38,7 +38,7 @@ class BinarySearchTree {
   constructor() {
     
     this.root = null;
-  
+ 
   }
 
   
@@ -53,9 +53,10 @@ class BinarySearchTree {
       
       right: null
     
-  };
+    };
+
     
-  
+
     var currentNode;
 
     
@@ -66,107 +67,85 @@ class BinarySearchTree {
     
     } else {
       
-      currentNode = this.root;
+        currentNode = this.root;
+    
+    }
+    
+
+    while(currentNode) {
       
-      while(currentNode) {
+      if(val < currentNode.data) {
         
-        if (val < currentNode.data) {
+        if(!currentNode.left) {
           
-          if (!currentNode.left) {
+          currentNode.left = node;
+         
+          break;
+        
+        } else {
+          
+            currentNode = currentNode.left;
+        
+        }
+     
+      } else if (val > currentNode.data) {
+          
+          if(!currentNode.right) {
             
-            currentNode.left = node;
+            currentNode.right = node;
             
             break;
           
           } else {
             
-            currentNode = currentNode.left;
+              currentNode = currentNode.right;
           
           }
-        
-       } else if (val > currentNode.data) {
-          
-         if(!currentNode.right) {
-            
-           currentNode.right = node;
-            
-           break;
-          
-       } else {
-            
-         currentNode = currentNode.right;
-          
-       }
-        
-     } else {
-          
-       console.log('Ingnoring value. BST only has unique values');
-                 break;
-        
-     }
       
-    }
+      } else {
+        
+          console.log("No repeat nodes");
+      
+      }
     
-   }
+    }
   
   }
 
 }
 
 
-BinarySearchTree.prototype.contains = function (value) {
 
+BinarySearchTree.prototype.contains = function(value) {
   
   const search = function(currentNode) {
-
     
-    if (currentNode === undefined) {
-       
-      currentNode = this.root;
-    }
-    
-      // console.log(currentNode.data);
-    
-      // console.log(value);
-    
-      // console.log(currentNode.left.data);
-
-
-    
- 
-    if (currentNode.data === value) {
+    if(currentNode === undefined) {
       
+      currentNode = this.root;
+    
+    }
+
+    
+
+    if(value === currentNode.data) {
+     
       return true;
     
-    } else if (value < currentNode.data && currentNode.left !== null) {
-      
-        // console.log("first else firing");
-      
-        return search(currentNode.left);
+    } else if(value < currentNode.data && currentNode.left) {
+              return search(currentNode.left);
     
-    } else if (value > currentNode.data && currentNode.right !== null) {
-      
-        return search(currentNode.right)
-      
-        // console.log("second else firing");
+    } else if(value > currentNode.data && currentNode.right) {
+              return search(currentNode.right);
     
-    } else {
-      
-       // console.log("fell through and returning false");
-      
-       return false;
-    
-    }
+    } else return false;
   
   }
-
   
   return search(this.root);
 
 }
 
-
-console.log(BST.contains(2));
 
 ```
 
@@ -194,22 +173,23 @@ BinarySearchTree.prototype.LCA = function (value1, value2) {
     while (lowestCommonAncestor === undefined) {
       
       if (value1 === currentNode.data || value2 === currentNode.data) {
-              lowestCommonAncestor = currentNode;
+                      lowestCommonAncestor = currentNode;
       
-      } else if (value1 > currentNode.data && value2 < currentNode.data) {
-           lowestCommonAncestor = currentNode;
+        } else if (value1 > currentNode.data && value2 < currentNode.data) {
+                      lowestCommonAncestor = currentNode;
       
-      } else if (value1 < currentNode.data && value2 > currentNode.data) {
-           lowestCommonAncestor = currentNode;
+        } else if (value1 < currentNode.data && value2 > currentNode.data) {
+                      lowestCommonAncestor = currentNode;
       
-      } else if (value1 < currentNode.data && value2 < currentNode.data) {
-             return ancestor(currentNode.left);
+        } else if (value1 < currentNode.data && value2 < currentNode.data) {
+                      return ancestor(currentNode.left);
       
-      } else if (value1 > currentNode.data && value2 > currentNode.data) {
-            return ancestor(currentNode.right);
+        } else if (value1 > currentNode.data && value2 > currentNode.data) {
+                      return ancestor(currentNode.right);
       
-      }
-  return lowestCommonAncestor;
+        }
+      
+        return lowestCommonAncestor;
     
     }
 
@@ -221,9 +201,11 @@ BinarySearchTree.prototype.LCA = function (value1, value2) {
 }
 
 
+
 BinarySearchTree.prototype.distance = function (value1, value2) {
 
-    currentNode = this.LCA(value1, value2);
+  
+  currentNode = this.LCA(value1, value2);
   
   let counter1 = 0;
   
@@ -233,33 +215,31 @@ BinarySearchTree.prototype.distance = function (value1, value2) {
 
   const distanceToValue1 = function(currentNode) {
     
-  // console.log(`LCA data: ${currentNode.data}`);
-      
     if (value1 === currentNode.data) {
-       
+        
       counter1 = counter1;
         
       console.log(`Final C1: ${counter1}`);
       
     } else if (value1 < currentNode.data && currentNode.left !== null) {
-             counter1++;
+                counter1++;
         
         distanceToValue1(currentNode.left);
       
     } else if (value1 > currentNode.data && currentNode.right !== null) {
-            counter1++;
-       
+                counter1++;
+        
         distanceToValue1(currentNode.right);
       
     }
     
-      return counter1;
+    return counter1;
     
   }
 
-  
 
-const distanceToValue2 = function(currentNode) {
+
+  const distanceToValue2 = function(currentNode) {
 
       
     if (value2 === currentNode.data) {
@@ -267,15 +247,15 @@ const distanceToValue2 = function(currentNode) {
       counter2 = counter2;
       
     } else if (value2 < currentNode.data && currentNode.left !== null) {
-            counter2++;
+                counter2++;
         
-       distanceToValue2(currentNode.left);
+        distanceToValue2(currentNode.left);
       
     } else if (value2 > currentNode.data && currentNode.right !== null) {
-            counter2++;
-       
+                counter2++;
+        
         distanceToValue2(currentNode.right);
-     
+      
     }
       
     return counter2;
@@ -284,7 +264,6 @@ const distanceToValue2 = function(currentNode) {
 
   
   return  distanceToValue1(currentNode) + distanceToValue2(currentNode) +   console.log(counter1 + counter2);
-
 }
 
 ```
